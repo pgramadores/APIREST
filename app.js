@@ -16,6 +16,13 @@ router.get('/', function(req, res) {
 
 app.use(router);
 
-app.listen(3000, function() {
-  console.log("Node server running on http://localhost:3000");
+mongoose.connect('mongodb://localhost/Ofertas', function(err, res) {
+  if(err) {
+    console.log('ERROR: connecting to Database. ' + err);
+}else {
+    console.log('Conectado a mongodb');
+}
+  app.listen(3000, function() {
+    console.log("Node server running on http://localhost:3000");
+  });
 });
