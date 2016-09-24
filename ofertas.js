@@ -8,7 +8,7 @@ var ofertasSchema = new Schema({
     categoria: {type: String, enum:['Desarrollo','Redes','Arquitectura','Administrativo','Diseño']},
     sueldo:   { type: Number },
     tipocontrato: {type: String, enum:['Indefinido', 'Honorarios', 'Proyecto', 'Otro']},
-    descripciongeneral: {type; String },
+    descripciongeneral: {type: String },
     beneficiosventajas : {type: String },
     requisitos: {type: String },
     pais:{ type: String },
