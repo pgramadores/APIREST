@@ -25,6 +25,20 @@ exports.findById = function(req, res) {
     });
 };
 
+//GET - Retorna ofertas por pais
+exports.findOfertasPorPais = function(req, res) {
+    Ofer.find({ 'pais': req.params.pais, 'estado':true }, function(err, ofertas) {
+        if(err){
+            res.send(500, err.message);
+        }else{
+            console.log('GET /ofertas')
+            res.status(200).jsonp(ofertas);
+        }
+    });
+
+};
+
+
 //POST - Insert a new TVShow in the DB
 exports.addOferta = function(req, res) {
     console.log('POST');
@@ -74,11 +88,11 @@ exports.updateOferta = function(req, res) {
         oferta.fechatermino  =       req.body.fechatermino;
         oferta.estado  =             req.body.estado;
 
-        Ofer.save(function(err) {
+        oferta.save(function(err) {
             if(err) {
                 return res.status(500).send(err.message);
             }else{
-                res.status(200).jsonp(tvshow);
+                res.status(200).jsonp(oferta);
             }
         });
     });
