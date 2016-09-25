@@ -17,6 +17,19 @@ mongoose.connect('mongodb://localhost/Ofertas', function(err, res) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://pro-gramadores.io');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    // Pass to next layer of middleware
+    next();
+});
 
 //Modelo y controlador
 // Import Models and controllers
@@ -41,6 +54,9 @@ ofertas_.route('/ofertas/:id')
   .get(OfertasCtrl.findById)
   .put(OfertasCtrl.updateOferta)
   .delete(OfertasCtrl.deleteOferta);
+
+ofertas_.route('/ofertasp/:pais')
+    .get(OfertasCtrl.findOfertasPorPais);
 
 app.use('/api', ofertas_);
 
