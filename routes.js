@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Ofer  = mongoose.model('Ofertas');
+var fs = require('fs');
 
-//GET - Return all tvshows in the DB
+//GET
 exports.findAllOfertas = function(req, res) {
     Ofer.find(function(err, ofertas) {
     if(err){
@@ -13,7 +14,7 @@ exports.findAllOfertas = function(req, res) {
     });
 };
 
-//GET - Return a TVShow with specified ID
+//GET
 exports.findById = function(req, res) {
     Ofer.findById(req.params.id, function(err, oferta) {
     if(err) {
@@ -25,7 +26,7 @@ exports.findById = function(req, res) {
     });
 };
 
-//GET - Retorna ofertas por pais
+//GET
 exports.findOfertasPorPais = function(req, res) {
     Ofer.find({ 'pais': req.params.pais, 'estado':true }, function(err, ofertas) {
         if(err){
@@ -39,27 +40,47 @@ exports.findOfertasPorPais = function(req, res) {
 };
 
 
-//POST - Insert a new TVShow in the DB
+//POST
 exports.addOferta = function(req, res) {
     console.log('POST');
-    console.log(req.body);
+    //console.log(req.body);
+
+    var iae = '';
+    var image = req.body.imagen;
+    var data = image.replace(/^data:image\/\w+;base64,/, '');
+    // fs.writeFile('imagen.png', data, {encoding: 'base64'}, function(err){
+    //     iae = 'exito';
+    // });
+
+    fs.writeFile('imagen.png', data, {encoding: 'base64'}, (err) => {
+        if (err){
+            throw err;
+            iae = 'error';
+        }else {
+            iae = 'imagen.png';
+            console.log('It\'s saved!');
+        }
+
+    });
 
     var oferta = new Ofer({
-        cargo:              req.body.cargo,
-        publicador:         req.body.publicador,
-        correopublicador:   req.body.correopublicador,
-        categoria:          req.body.categoria,
-        sueldo:             req.body.sueldo,
-        tipocontrato:       req.body.tipocontrato,
-        descripciongeneral: req.body.descripciongeneral,
-        beneficiosventajas: req.body.beneficiosventajas,
-        requisitos:         req.body.requisitos,
-        pais:               req.body.pais,
-        imagen:             req.body.imagen,
-        fechacreacion:      req.body.fechacreacion,
-        fechatermino:       req.body.fechatermino,
-        estado:             req.body.estado
+        "cargo":              req.body.cargo,
+        "publicador":         req.body.publicador,
+        "correopublicador":   req.body.correopublicador,
+        "categoria":          req.body.categoria,
+        "sueldo":             req.body.sueldo,
+        "tipocontrato":       req.body.tipocontrato,
+        "descripciongeneral": req.body.descripciongeneral,
+        "beneficiosventajas": req.body.beneficiosventajas,
+        "requisitos":         req.body.requisitos,
+        "pais":               req.body.pais,
+        "imagen":             'holiwis',
+        "fechacreacion":      req.body.fechacreacion,
+        "fechatermino":       req.body.fechatermino,
+        "estado":             req.body.estado
     });
+
+    console.log(oferta);
 
     oferta.save(function(err, oferta) {
         if(err){
@@ -70,7 +91,7 @@ exports.addOferta = function(req, res) {
     });
 };
 
-//PUT - Update a register already exists
+//PUT
 exports.updateOferta = function(req, res) {
     Ofer.findById(req.params.id, function(err, oferta) {
         oferta.cargo  =              req.body.cargo;
@@ -98,7 +119,7 @@ exports.updateOferta = function(req, res) {
     });
 };
 
-//DELETE - Delete a TVShow with specified ID
+//DELETE
 exports.deleteOferta = function(req, res) {
     Ofer.findById(req.params.id, function(err, oferta) {
         oferta.remove(function(err) {
