@@ -58,6 +58,9 @@ ofertas_.route('/ofertas/:id')
 ofertas_.route('/ofertasp/:pais')
     .get(OfertasCtrl.findOfertasPorPais);
 
+ofertas_.route('/ofertasp/:id')
+    .put(OfertasCtrl.updateIrsertaPustulanteOferta);
+
 app.use('/api', ofertas_);
 
 app.listen(3000, function() {
