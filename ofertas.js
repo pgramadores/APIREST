@@ -8,7 +8,7 @@ var ofertasSchema = new Schema({
     categoria: {type: String, enum:['Desarrollo','Redes','Arquitectura','Administración','Seguridad','Diseño','Otro']},
     sueldo:   { type: Number },
     tipocontrato: {type: String, enum:['Plazo fijo', 'Proyecto', 'Indefinido', 'Otro']},
-    modalidadtrabajo: {type: String, enum:['Part-Time','Full Time','Otro']}
+    modalidadtrabajo: {type: String, enum:['Part-Time','Full Time','Otro']},
     descripciongeneral: {type: String },
     beneficiosventajas : {type: String },
     requisitos: {type: String },
@@ -16,7 +16,8 @@ var ofertasSchema = new Schema({
     imagen: { type: String },
     fechacreacion: {type: Date },
     fechatermino: {type: Date },
-    estado:{ type: Boolean }
+    estado:{ type: Boolean },
+    postulaciones: {type: Array }
 });
 
 module.exports = mongoose.model('Ofertas', ofertasSchema);
