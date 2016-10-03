@@ -1,10 +1,12 @@
 {
     "name": "restpgramadores",
     "version": "1.0.0",
+    "description": "API REST para proyecto Pro-Gramadores",
     "dependencies": {
         "mongoose": "~3.6.11",
         "express": "^4.7.1",
         "method-override": "^2.1.2",
-        "body-parser": "^1.5.1"
+        "body-parser": "^1.5.1",
+        "nodemailer": "^2.6.4"
     }
 }
