@@ -52,15 +52,14 @@ exports.addOferta = function(req, res) {
     //     iae = 'exito';
     // });
 
-    fs.writeFile('imagen.png', data, {encoding: 'base64'}, (err) => {
+    fs.writeFile('../pro-gramadores/pro-gramadores/images/trabajos/imagen'+req.body.cargo.trim()+'.png', data, {encoding: 'base64'}, (err) => {
         if (err){
             throw err;
             iae = 'error';
         }else {
-            iae = 'imagen.png';
+            iae = './images/trabajos/imagen'+req.body.cargo.trim()+'.png';
             console.log('It\'s saved!');
         }
-
     });
 
     var oferta = new Ofer({
@@ -74,7 +73,7 @@ exports.addOferta = function(req, res) {
         "beneficiosventajas": req.body.beneficiosventajas,
         "requisitos":         req.body.requisitos,
         "pais":               req.body.pais,
-        "imagen":             'holiwis',
+        "imagen":             './images/trabajos/imagen'+req.body.cargo.trim()+'.png',
         "fechacreacion":      req.body.fechacreacion,
         "fechatermino":       req.body.fechatermino,
         "estado":             req.body.estado
@@ -90,6 +89,34 @@ exports.addOferta = function(req, res) {
         }
     });
 };
+
+//PUT
+exports.updateIrsertaPustulanteOferta = function(req, res) {
+
+    var postulacion = {
+        "nombre":            req.body.nombre,
+        "correo":            req.body.correo,
+        "telefono":          req.body.telefono,
+        "linkedin":          req.body.linkedin,
+        "portafolio":        req.body.portafolio,
+        "experiencia":       req.body.experiencia,
+        "cartapresentacion": req.body.cartapresentacion
+    };
+
+    Ofer.findById(req.params.id, function(err, oferta) {
+        oferta.postulaciones.push( postulacion );
+        //oferta.postulaciones  =   postulacion;
+        oferta.save(function(err) {
+            if(err) {
+                return res.status(500).send(err.message);
+            }else{
+                res.status(200).jsonp(oferta);
+            }
+        });
+    });
+};
+
+
 
 //PUT
 exports.updateOferta = function(req, res) {
