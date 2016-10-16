@@ -1,6 +1,10 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
+//#####################################################
+//######## Esquema de modulo Ofertas laborales ########
+//#####################################################
+
 var ofertasSchema = new Schema({
     cargo:  { type: String },
     publicador: {type: String },

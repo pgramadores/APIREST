@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 var Ofer  = mongoose.model('Ofertas');
 var fs = require('fs');
+var nodemailer = require('nodemailer');
+
+//#####################################################
+//###### Controlador de modulo Ofertas laborales ######
+//#####################################################
 
 //GET
 exports.findAllOfertas = function(req, res) {
@@ -38,7 +43,6 @@ exports.findOfertasPorPais = function(req, res) {
     });
 
 };
-
 
 //POST
 exports.addOferta = function(req, res) {
@@ -103,6 +107,38 @@ exports.updateIrsertaPustulanteOferta = function(req, res) {
         "cartapresentacion": req.body.cartapresentacion
     };
 
+    var options = {
+        ignoreTLS: true,
+        host: "mail.raicerk.cl",
+        port: 25,
+        //secure: true, // use SSL
+        auth: {
+            user: 'jvmora@raicerk.cl',
+            pass: 'r042581796r'
+       }
+    };
+
+    var smtpTransport = require('nodemailer-smtp-transport');
+    var transporter = nodemailer.createTransport(smtpTransport(options));
+
+
+    var mailOptions = {
+        from: '"Juan Mora 👥" <jvmora@raicerk.cl>', // sender address
+        to: 'raicerk@outlook.com, raicerk@gmail.com, jvmora@raicerk.cl', // list of receivers
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world 🐴', // plaintext body
+        html: '<b>Hello world 🐴</b>' // html body
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });
+
+
+
     Ofer.findById(req.params.id, function(err, oferta) {
         oferta.postulaciones.push( postulacion );
         //oferta.postulaciones  =   postulacion;
@@ -115,8 +151,6 @@ exports.updateIrsertaPustulanteOferta = function(req, res) {
         });
     });
 };
-
-
 
 //PUT
 exports.updateOferta = function(req, res) {

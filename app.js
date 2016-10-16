@@ -5,7 +5,7 @@ var express = require("express"),
     mongoose = require('mongoose');
 
 //Conexion con la base de datos
-mongoose.connect('mongodb://localhost/Ofertas', function(err, res) {
+mongoose.connect('mongodb://localhost/pgramadores', function(err, res) {
     if(err) {
         console.log('ERROR: connecting to Database. ' + err);
     }else {
@@ -32,19 +32,16 @@ app.use(function (req, res, next) {
 });
 
 //Modelo y controlador
-// Import Models and controllers
-var ofertas_     = require('./ofertas')(app, mongoose);
-var OfertasCtrl = require('./routes');
-
-var router = express.Router();
-router.get('/', function(req, res) {
-  res.send("Hello world!");
-});
-app.use(router);
+var ofertas_     = require('./model')(app, mongoose);
+var OfertasCtrl = require('./controller');
 
 // API routes
 var ofertas_ = express.Router();
 app.use(ofertas_);
+
+ofertas_.get('/', function(req, res) {
+    res.send("Bienvenidos a la API de pro-gramadores!");
+});
 
 ofertas_.route('/ofertas')
   .get(OfertasCtrl.findAllOfertas)
@@ -64,5 +61,5 @@ ofertas_.route('/ofertasp/:id')
 app.use('/api', ofertas_);
 
 app.listen(3000, function() {
-    console.log("Node server running on http://localhost:3000");
+    console.log("Node server ejecutandose en http://localhost:3000");
 });
