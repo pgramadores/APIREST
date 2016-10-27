@@ -25,3 +25,22 @@ var ofertasSchema = new Schema({
 });
 
 module.exports = mongoose.model('Ofertas', ofertasSchema);
+
+//#####################################################
+//######## Esquema de modulo Foros ####################
+//#####################################################
+
+var forosSchema = new Schema({
+
+    nombres: {type: String},
+    apellidos: {type: String},
+    correo: {type: String},
+    descripcion: {type: String},
+    fechapublicacion: {type: Date},
+    tipoforo: {type: String},
+
+
+
+});
+
+module.exports = mongoose.model('Foros', forosSchema);
