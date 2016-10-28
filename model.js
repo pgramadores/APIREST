@@ -32,14 +32,12 @@ module.exports = mongoose.model('Ofertas', ofertasSchema);
 
 var forosSchema = new Schema({
 
-    nombres: {type: String},
-    apellidos: {type: String},
+    nombrecompleto: {type: String},
     correo: {type: String},
-    descripcion: {type: String},
+    preguntas: {type: String},
     fechapublicacion: {type: Date},
-    tipoforo: {type: String},
-
-
+    tipotopico: {type: String, enum:['php', 'php framework', 'php', 'jsp', 'java EE', 'java desktop', 'C#', 'Visual Basic', 'asp']},
+    respuestas: {type: Array}
 
 });
 

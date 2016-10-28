@@ -58,7 +58,27 @@ ofertas_.route('/ofertasp/:pais')
 ofertas_.route('/ofertasp/:id')
     .put(OfertasCtrl.updateIrsertaPustulanteOferta);
 
+
+
+//Modelo y controlador de FOROS
+var foros_     = require('./model')(app, mongoose);
+var ForosCtrl = require('./controllerforos');
+
+// API routes
+var foros_ = express.Router();
+app.use(foros_);
+
+foros_.route('/foros')
+    .get(ForosCtrl.findAllForos)
+    .post(ForosCtrl.addPregunta);
+
+
+
+
+
+
 app.use('/api', ofertas_);
+app.use('/api', foros_);
 
 app.listen(3000, function() {
     console.log("Node server ejecutandose en http://localhost:3000");
