@@ -77,8 +77,8 @@ foros_.route('/foros')
 
 
 
-app.use('/api', ofertas_);
-app.use('/api', foros_);
+app.use('/api', [ofertas_, foros_]);
+//app.use('/api', foros_);
 
 app.listen(3000, function() {
     console.log("Node server ejecutandose en http://localhost:3000");
