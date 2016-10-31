@@ -4,36 +4,27 @@ var express = require("express"),
     methodOverride = require("method-override");
     mongoose = require('mongoose');
 
-//Conexion con la base de datos
-mongoose.connect('mongodb://localhost/pgramadores', function(err, res) {
-    if(err) {
-        console.log('ERROR: connecting to Database. ' + err);
-    }else {
-        console.log('Conectado a mongodb');
-    }
-});
+//#############################################################################################################
+//############################################### Middlewares #################################################
+//#############################################################################################################
 
-// Middlewares
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(methodOverride());
 app.use(function (req, res, next) {
-    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://pro-gramadores.io');
-    // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
-    // Pass to next layer of middleware
     next();
 });
 
-//Modelo y controlador
-var ofertas_     = require('./model')(app, mongoose);
-var OfertasCtrl = require('./controller');
+//#############################################################################################################
+//################################### Modelo y controlador Laboral ############################################
+//#############################################################################################################
+
+var ofertas_     = require('./modellaboral')(app, mongoose);
+var OfertasCtrl = require('./controllerlaboral');
 
 // API routes
 var ofertas_ = express.Router();
@@ -58,10 +49,11 @@ ofertas_.route('/ofertasp/:pais')
 ofertas_.route('/ofertasp/:id')
     .put(OfertasCtrl.updateIrsertaPustulanteOferta);
 
+//#############################################################################################################
+//################################### Modelo y controlador Foros ##############################################
+//#############################################################################################################
 
-
-//Modelo y controlador de FOROS
-var foros_     = require('./model')(app, mongoose);
+var foros_     = require('./modelforos')(app, mongoose);
 var ForosCtrl = require('./controllerforos');
 
 // API routes
@@ -72,13 +64,19 @@ foros_.route('/foros')
     .get(ForosCtrl.findAllForos)
     .post(ForosCtrl.addPregunta);
 
+//##############################################################################################################
+//################################ Implementación de la API REST ###############################################
+//##############################################################################################################
 
-
-
-
+mongoose.connect('mongodb://localhost/pgramadores', function(err, res) {
+    if(err) {
+        console.log('ERROR: connecting to Database. ' + err);
+    }else {
+        console.log('Conectado a mongodb');
+    }
+});
 
 app.use('/api', [ofertas_, foros_]);
-//app.use('/api', foros_);
 
 app.listen(3000, function() {
     console.log("Node server ejecutandose en http://localhost:3000");
