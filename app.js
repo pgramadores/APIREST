@@ -79,6 +79,12 @@ blog_.route('/posts')
     .get(BlogCtrl.findAllPost)
     .post(BlogCtrl.addPost);    
 
+blog_.route('/posts/:id')
+    .get(BlogCtrl.findById);    
+
+blog_.route('/posts/categoria/:categorias')
+    .get(BlogCtrl.findPostsPorCategoria);    
+
 //##############################################################################################################
 //################################ Implementación de la API REST ###############################################
 //##############################################################################################################
