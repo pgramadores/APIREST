@@ -9,7 +9,7 @@ var fs = require('fs');
 
 //GET
 exports.findAllPerfil = function(req, res){
-    Foro.find(function(err, perfil){
+    Perfil.find(function(err, perfil){
         if(err){
             res.send(500, err.message);
         }
