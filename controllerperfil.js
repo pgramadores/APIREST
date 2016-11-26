@@ -20,6 +20,19 @@ exports.findAllPerfil = function(req, res){
 
 };
 
+//GET
+exports.findPerfilPorCorreo = function(req, res) {
+    Ofer.find({ 'correo': req.params.correo }, function(err, perfil) {
+        if(err){
+            res.send(500, err.message);
+        }else{
+            console.log('GET /perfil')
+            res.status(200).jsonp(perfil);
+        }
+    });
+
+};
+
 //POST
 exports.addPerfil = function(req, res) {
     console.log('POST');
