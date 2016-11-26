@@ -22,7 +22,7 @@ exports.findAllPerfil = function(req, res){
 
 //GET
 exports.findPerfilPorCorreo = function(req, res) {
-    Ofer.find({ 'correo': req.params.correo }, function(err, perfil) {
+    Perfil.find({ 'correo': req.params.correo }, function(err, perfil) {
         if(err){
             res.send(500, err.message);
         }else{
