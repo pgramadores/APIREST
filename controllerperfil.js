@@ -64,30 +64,6 @@ exports.addPerfil = function(req, res) {
 
 exports.updatePerfil = function(req, res) {
 
-    // Perfil.find({ 'correo': req.params.correo }, function(err, perfil) {
-    //
-    //     // perfil.bio =                 req.body.bio;
-    //     // //perfil.redessociales =       req.body.redessociales;
-    //     // //perfil.experiencia =         req.body.experiencia;
-    //     // perfil.nacionalidad =        req.body.nacionalidad;
-    //     // perfil.foto =                req.body.foto;
-    //     // //perfil.aptitudes =           req.body.aptitudes;
-    //     // perfil.contrasena =          req.body.contrasena;
-    //
-    //
-    //     pepe = new Perfil();
-    //     pepe.nacionalidad = req.body.nacionalidad;
-    //     pepe.contrasena =          req.body.contrasena;
-    //
-    //     pepe.save(function(err, perfil) {
-    //         if(err) {
-    //             return res.status(500).send(err.message);
-    //         }else{
-    //             res.status(200).jsonp(perfil);
-    //         }
-    //     });
-    // });
-
         Perfil.findOne({"correo": req.params.correo}, function (err, perfil) {
         // Handle any possible database errors
         if (err) {
@@ -99,6 +75,7 @@ exports.updatePerfil = function(req, res) {
             perfil.nacionalidad = req.body.nacionalidad;
             perfil.foto         = req.body.foto;
             perfil.bio          = req.body.bio;
+            perfil.experiencia  = req.body.experiencia;
 
             // Save the updated document back to the database
             perfil.save(function (err, perfil) {
@@ -110,3 +87,31 @@ exports.updatePerfil = function(req, res) {
         }
     });
 };
+
+
+exports.updatePerfilAptitudes = function(req, res) {
+
+        if(req.params.admin!='somoslosmaspro'){
+            res.status(200).send("No hay permiso");
+            return;
+        }
+        Perfil.findOne({"correo": req.params.correo}, function (err, perfil) {
+        // Handle any possible database errors
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            // Update each attribute with any possible attribute that may have been submitted in the body of the request
+            // If that attribute isn't in the request body, default back to whatever it was before.
+            perfil.aptitudes.push(req.body.aptitudes);
+
+            // Save the updated document back to the database
+            perfil.save(function (err, perfil) {
+                if (err) {
+                    res.status(500).send(err)
+                }
+                res.send(perfil);
+            });
+        }
+    });
+};
+

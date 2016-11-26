@@ -99,13 +99,16 @@ var PerfilCtrl = require('./controllerperfil');
 var perfil_ = express.Router();
 app.use(perfil_);
 
-foros_.route('/perfil')
+perfil_.route('/perfil')
     .get(PerfilCtrl.findAllPerfil)
     .post(PerfilCtrl.addPerfil);
 
-blog_.route('/perfil/:correo')
+perfil_.route('/perfil/:correo')
     .get(PerfilCtrl.findPerfilPorCorreo)
     .put(PerfilCtrl.updatePerfil);
+
+perfil_.route('/perfiladmin/:correo/:admin/')
+    .put(PerfilCtrl.updatePerfilAptitudes);
 //##############################################################################################################
 //################################ Implementación de la API REST ###############################################
 //##############################################################################################################
