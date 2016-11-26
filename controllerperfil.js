@@ -29,6 +29,7 @@ exports.addPerfil = function(req, res) {
     var perfil = new Perfil({
         "correo"            : r.correo,
         "nombrecompleto"    : r.nombrecompleto,
+        "contrasena"        : r.contrasena,
         "foto"              : r.foto,
         "bio"               : r.bio,
         "redessociales"     : r.redessociales,
