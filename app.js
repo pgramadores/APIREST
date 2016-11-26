@@ -100,8 +100,8 @@ var perfil_ = express.Router();
 app.use(perfil_);
 
 foros_.route('/perfil')
-    .get(ForosCtrl.findAllPerfil)
-    .post(ForosCtrl.addPerfil);
+    .get(PerfilCtrl.findAllPerfil)
+    .post(PerfilCtrl.addPerfil);
 
 //##############################################################################################################
 //################################ Implementación de la API REST ###############################################
