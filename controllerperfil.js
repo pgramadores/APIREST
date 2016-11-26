@@ -45,3 +45,7 @@ exports.addPerfil = function(req, res) {
         }
     });
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb2277c5a93248f3192c0170a21da147e0e0f0f2

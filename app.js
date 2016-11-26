@@ -102,6 +102,22 @@ blog_.route('/posts/categoria/:categorias')
     .get(BlogCtrl.findPostsPorCategoria);
 
 
+
+//#############################################################################################################
+//################################### Modelo y controlador Perfil ##############################################
+//#############################################################################################################
+
+var perfil_     = require('./modelperfil')(app, mongoose);
+var PerfilCtrl = require('./controllerperfil');
+
+// API routes
+var perfil_ = express.Router();
+app.use(perfil_);
+
+foros_.route('/perfil')
+    .get(ForosCtrl.findAllPerfil)
+    .post(ForosCtrl.addPerfil);
+
 //##############################################################################################################
 //################################ Implementación de la API REST ###############################################
 //##############################################################################################################
@@ -114,7 +130,7 @@ mongoose.connect('mongodb://localhost/pgramadores', function(err, res) {
     }
 });
 
-app.use('/api', [ofertas_, foros_, blog_]);
+app.use('/api', [ofertas_, foros_, blog_, perfil_]);
 
 app.listen(3000, function() {
     console.log("Node server ejecutandose en http://localhost:3000");
