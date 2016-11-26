@@ -66,19 +66,19 @@ foros_.route('/foros')
 
 
 //#############################################################################################################
-//################################### Modelo y controlador Foros ##############################################
+//################################### Modelo y controlador Perfil ##############################################
 //#############################################################################################################
 
 var perfil_     = require('./modelperfil')(app, mongoose);
-var ForosCtrl = require('./controllerforos');
+var PerfilCtrl = require('./controllerperfil');
 
 // API routes
-var foros_ = express.Router();
-app.use(foros_);
+var perfil_ = express.Router();
+app.use(perfil_);
 
-foros_.route('/foros')
-    .get(ForosCtrl.findAllForos)
-    .post(ForosCtrl.addPregunta);
+foros_.route('/perfil')
+    .get(ForosCtrl.findAllPerfil)
+    .post(ForosCtrl.addPerfil);
 
 //#############################################################################################################
 //################################### Modelo y controlador Blog ##############################################
