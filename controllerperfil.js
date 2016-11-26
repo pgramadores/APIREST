@@ -28,7 +28,7 @@ exports.addPerfil = function(req, res) {
     var r = req.body;
     var perfil = new Perfil({
         "correo"            : r.correo,
-        "nombrecompleto"    : r.password,
+        "nombrecompleto"    : r.nombrecompleto,
         "foto"              : r.foto,
         "bio"               : r.bio,
         "redessociales"     : r.redessociales,
@@ -36,7 +36,7 @@ exports.addPerfil = function(req, res) {
         "experiencias"      : r.experiencias
     });
 
-    console.log(preguntas);
+    console.log(perfil);
 
     perfil.save(function(err, perfil) {
         if(err){
