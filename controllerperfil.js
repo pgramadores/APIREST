@@ -61,3 +61,26 @@ exports.addPerfil = function(req, res) {
         }
     });
 };
+
+exports.updatePerfil = function(req, res) {
+
+Perfil.find({ 'correo': req.params.correo }, function(err, perfil) {
+
+        perfil.bio =                 req.body.bio;
+        //perfil.redessociales =       req.body.redessociales;
+        //perfil.experiencia =         req.body.experiencia;
+        perfil.nacionalidad =        req.body.nacionalidad;
+        perfil.foto =                req.body.foto;
+        //perfil.aptitudes =           req.body.aptitudes;
+        perfil.contrasena =          req.body.contrasena;
+
+
+        perfil.save(function(err) {
+            if(err) {
+                return res.status(500).send(err.message);
+            }else{
+                res.status(200).jsonp(perfil);
+            }
+        });
+    });
+};

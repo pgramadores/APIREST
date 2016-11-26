@@ -104,8 +104,8 @@ foros_.route('/perfil')
     .post(PerfilCtrl.addPerfil);
 
 blog_.route('/perfil/:correo')
-    .get(PerfilCtrl.findPerfilPorCorreo);
-
+    .get(PerfilCtrl.findPerfilPorCorreo)
+    .put(PerfilCtrl.updatePerfil);
 //##############################################################################################################
 //################################ Implementación de la API REST ###############################################
 //##############################################################################################################
