@@ -27,12 +27,13 @@ exports.addPerfil = function(req, res) {
 
     var r = req.body;
     var perfil = new Perfil({
-        "nombrecompleto"      : r.nombrecompleto,
-        "correo"              : r.correo,
-        "preguntas"           : r.preguntas,
-        "fechapublicacion"    : r.fechapublicacion,
-        "tipotopico"          : r.tipotopico,
-        "respuestas"          : r.respuestas
+        "correo"            : r.correo,
+        "nombrecompleto"    : r.password,
+        "foto"              : r.foto,
+        "bio"               : r.bio,
+        "redessociales"     : r.redessociales,
+        "aptitudes"         : r.aptitudes,
+        "experiencias"      : r.experiencias
     });
 
     console.log(preguntas);
@@ -45,7 +46,3 @@ exports.addPerfil = function(req, res) {
         }
     });
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> eb2277c5a93248f3192c0170a21da147e0e0f0f2
