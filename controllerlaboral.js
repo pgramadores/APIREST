@@ -113,8 +113,8 @@ exports.updateIrsertaPustulanteOferta = function(req, res) {
         port: 25,
         //secure: true, // use SSL
         auth: {
-            user: 'jvmora@raicerk.cl',
-            pass: 'r042581796r'
+            user: 'correo@correo.com',
+            pass: '---------'
        }
     };
 

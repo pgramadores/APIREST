@@ -80,6 +80,28 @@ foros_.route('/foros')
     .get(ForosCtrl.findAllForos)
     .post(ForosCtrl.addPregunta);
 
+//#############################################################################################################
+//################################### Modelo y controlador Blog ##############################################
+//#############################################################################################################
+
+var blog_     = require('./modelblog')(app, mongoose);
+var BlogCtrl = require('./controllerblog');
+
+// API routes
+var blog_ = express.Router();
+app.use(blog_);
+
+blog_.route('/posts')
+    .get(BlogCtrl.findAllPost)
+    .post(BlogCtrl.addPost);
+
+blog_.route('/posts/:id')
+    .get(BlogCtrl.findById);
+
+blog_.route('/posts/categoria/:categorias')
+    .get(BlogCtrl.findPostsPorCategoria);
+
+
 //##############################################################################################################
 //################################ Implementación de la API REST ###############################################
 //##############################################################################################################
@@ -92,7 +114,7 @@ mongoose.connect('mongodb://localhost/pgramadores', function(err, res) {
     }
 });
 
-app.use('/api', [ofertas_, foros_]);
+app.use('/api', [ofertas_, foros_, blog_]);
 
 app.listen(3000, function() {
     console.log("Node server ejecutandose en http://localhost:3000");
